@@ -55,6 +55,62 @@ function liriBot() {
 
             console.log(FgGreen + "-----------Spotify Search Results!-0------------\n" +FgWhite);
             console.log(FgGreen + 'Artist(s): ' + FgWhite + data.tracks.items[0].artists[0].name);
+            console.log(FgGreen + 'Song: ' + FgWhite +data.tracks.items[0].name);
+            console.log(FgGreen + 'Album: ' + FgWhite + data.tracks[0].album.name);
+            console.log(terminalLink(FgGreen + 'Preview' + FgWhite, daya.tracks.items[0].artists[0].external_urls.spotify));
+            console.log(FgGreen + "\n-----------------------------" + Fgwhite);
+            fs.appendFile("random.txt", logIt, function(err) {
+                if (err) {
+                    return console.log(err);
+                }
+                console.log("\nrandom.txt was updated!\n");
+            });
+        });
+        break;
+
+        case "movie-this":
+
+        if (findThis === "") {
+            findThis = "Monty+Python+and+the+Holy+Grail" // if the user doesnt type in a movie in, it will search for monty python and the holy grail
+        }
+
+        var queryUrl = "http://www.omdbapi.com/?t=" + findThis + "&y=&plot=short&apikey=" + keys.omdb.key;
+        var logIt = search.concat("," + findThis + ",")
+
+        console.log("Searching " + FgBlue + "OMBD.." + FgWhite + "\n")
+
+        request(queryUrl, function(error, response, body) {
+
+            if (error) {
+                console.log(error);
+            } else if (!error && response.statusCode === 200 && JSON.parse(body).Ratings !== undefined) {
+                console.log(FgBlue + "----------Your Movie Search Results----------\n" + FgWhite);
+                    console.log(FgBlue + "Year: " + FgWhite + JSON.parse(body).Year);
+                    console.log(FgBlue + "Title: " + FgWhite + JSON.parse(body).Title);
+                    console.log(FgBlue + "Actors: " + FgWhite + JSON.parse(body).Actors);
+                    console.log(FgBlue + "Country: " + FgWhite + JSON.parse(body).Country);
+                    console.log(FgBlue + "Language: " + FgWhite + JSON.parse(body).Language);
+                    console.log(FgBlue + "IMDB Rating: " + FgWhite + JSON.parse(body).imdbRating);
+                    console.log(FgBlue + "Rotten Tomatoes Rating: " + FgWhite + JSON.parse(body).Ratings[1].Value);
+                    console.log(FgBlue + "Plot: " + FgWhite + JSON.parse(body).Plot);
+                    console.log(FgBlue + "\n---------------------------------------------" + FgWhite);
+                    fs.appendFile("random.txt", logIt, function(err) {
+                        if (err) {
+                            return console.log(err);
+                        }
+                        console.log("\nrandom.txt was updated!\n");
+                    });
+                } else {
+                    console.log("That movie does not exists in the " + FgBlue + " OMBD.." + FgWhite + "\n")
+                }
+        });
+        break;
+
+        case "do-what-it-says":
+
+        fs.readFile("random.txt", "utf8", function(error, data) {
+
+            vardataArr = data.split(",");
         })
     }
 }
