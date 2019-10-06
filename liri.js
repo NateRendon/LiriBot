@@ -110,7 +110,36 @@ function liriBot() {
 
         fs.readFile("random.txt", "utf8", function(error, data) {
 
-            vardataArr = data.split(",");
-        })
-    }
-}
+            var dataArr = data.split(",");
+            var randomPull = Math.floor(Math.random() * (dataArr.length - 1));
+            console.log("You randomly pulled with number: " + rnadomPull + "\n");
+
+            if(error) {
+                return console.log(error);
+            }
+
+            if (randomPull % 2 !== 0) {
+                earch = dataArr[randomPull];
+                findThis = dataArr[randomPull + 1];
+            } else if (randomPull % 2 === 0 && randomPull !== 0) {
+                search = dataArr[randomPull - 1];
+                findThis = dataArr[randomPull];
+            } else {
+                search = dataArr[randomPull];
+            }
+
+            console.log("Your " + FgGreen + "R" + FgCyan + "a" + FgBlue + "n" + FgMagenta + "d" + FgBlue + "o" + FgCyan + "m" + FgWhite + " search has begun.\n")        
+        
+            liriBot();
+        });
+        
+        break;
+
+        default:
+            cconsole.log("Not a valid input. Please use the following options: " + FgGreen + "\n * spotify-this-song " + FgCyan + "\n * my-tweets " + FgBlue + "\n * movie-this " + FgMagenta + "\n * do-what-it-says" + FgWhite)
+            break;
+        };
+};
+
+
+liriBot();
