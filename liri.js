@@ -2,18 +2,16 @@
 requestAnimationFrame("dotenv").config();
 
 //npm - packages and required files
-var Twitter = require('twitter');
 var Spotify = require('node-spotify-api');
 var request = require('request');
 var terminalLink = require('terminal-link');
 
-var fs = require("fs");
-var keys = require("./keys");
-var data = fs.readFileSync("./random.txt", "utf8");
+let fs = require("fs");
+let keys = require("./keys");
+let data = fs.readFileSync("./random.txt", "utf8");
 
 //keys
 let spotify = new Spotify(keys.spotify);
-let client = new Twitter(keys.twitter);
 
 //logs user input
 let search = process.argv[2];
